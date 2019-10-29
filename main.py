@@ -5,6 +5,7 @@
 import click
 import glob
 import os
+import sys
 
 from app.evernote import read_evernote_html
 from app.gkeep import Keeper
@@ -14,8 +15,8 @@ BATCH_SIZE = 100
 
 @click.command()
 @click.option('--directory', default='import', metavar='PATH')
-@click.option('--username', envvar='GKEEP_USERNAME')
-@click.option('--password', envvar='GKEEP_PASSWORD')
+@click.option('--username', envvar='GKEEP_USERNAME', default='')
+@click.option('--password', envvar='GKEEP_PASSWORD', default='')
 def cli(directory, username, password):
   """Specify the directory where you have exported your Evernote Notes as
   HTML clippings, and this script will convert them into gKeep notes.
@@ -48,7 +49,9 @@ def cli(directory, username, password):
     try:
       keep.create_note(title.text, text.text)
     except Exception as unknown_exception:  # pylint: disable=W0703
+      print("ERROR!")
       print(unknown_exception)
+      sys.exit(127)
 
     if count >= current_batch or count == len(files):
       print("Synchronizing ...")
