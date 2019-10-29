@@ -1,0 +1,9 @@
+# Base
+*~
+.DS_Store
+.idea
+venv
+
+# Evernote
+import/*.html
+credentials.json

@@ -1,0 +1,12 @@
+[
+  {
+    "filename": "one.html",
+    "title": "one",
+    "body": "some text"
+  },
+  {
+    "filename": "two.html",
+    "title": "two",
+    "body": "some text"
+  }
+]
