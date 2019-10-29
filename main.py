@@ -1,3 +1,7 @@
+"""Evernote HTML to GKeep Script"""
+
+# pylint: disable=E1120
+
 import click
 import glob
 import os
@@ -35,23 +39,22 @@ def cli(directory, username, password):
   keep.login()
 
   count = 0
+  current_batch = BATCH_SIZE
 
   for fname in files:
     count += 1
     title, text = read_evernote_html(fname)
     print("Importing: %s" % fname)
-    print(text.text)
     try:
       keep.create_note(title.text, text.text)
-    except Exception as e:
-      print(e)
-      exit(127)
+    except Exception as unknown_exception:  # pylint: disable=W0703
+      print(unknown_exception)
 
-    if count >= BATCH_SIZE:
+    if count >= current_batch or count == len(files):
       print("Synchronizing ...")
       keep.sync()
-      count = 0
+      current_batch = current_batch + BATCH_SIZE
 
 
 if __name__ == '__main__':
-    cli()
+  cli()

@@ -1,0 +1,12 @@
+[run]
+branch = True
+omit = */test*
+source = .
+
+[report]
+precision = 1
+show_missing = True
+ignore_errors = True
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
