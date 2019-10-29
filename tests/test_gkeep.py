@@ -13,8 +13,7 @@ class TestWithKeep:
 
   @classmethod
   def setup_class(cls):
-    with open(os.path.join(PATH, 'credentials', 'credentials.json')) as fh:
-      cls.credentials = json.load(fh)
+    cls.credentials = {'username': 'niall', 'password': 'byrne'}
     cls.Keeper = Keeper(**cls.credentials)
 
   @patch('app.gkeep.gkeepapi.Keep.login')
